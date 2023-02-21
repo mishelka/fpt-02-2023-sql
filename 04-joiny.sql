@@ -1,10 +1,10 @@
 -- address select cez inner join
--- SELECT a.address_id, a.address, a.address2,
---            a.district, c.city, ct.country,
---            a.postal_code, a.phone, a.last_update
--- FROM address a
---    INNER JOIN city c ON a.city_id = c.city_id
---    INNER JOIN country ct ON c.country_id = ct.country_id;
+SELECT a.address_id, a.address, a.address2,
+           a.district, c.city, ct.country,
+           a.postal_code, a.phone, a.last_update
+FROM address a
+   INNER JOIN city c ON a.city_id = c.city_id
+   INNER JOIN country ct ON c.country_id = ct.country_id;
 --    , city c, country ct
 -- WHERE a.city_id = c.city_id
 -- AND c.country_id = ct.country_id;
