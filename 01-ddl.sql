@@ -1,12 +1,21 @@
 DROP TABLE IF EXISTS person;
 CREATE TABLE person(
-    id INT PRIMARY KEY,
+    person_id INT PRIMARY KEY,
     name VARCHAR(20) NOT NULL,
     surname VARCHAR(20) NOT NULL,
     age INT NOT NULL CHECK(age >= 0 AND age < 150),
     birth_date DATE,
     address VARCHAR(25),
     salary REAL
+);
+
+CREATE TABLE car(
+    car_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    owner_id INT,
+    brand VARCHAR(20),
+    manufactureYear INT,
+    CONSTRAINT fk_owner FOREIGN KEY(owner_id)
+        REFERENCES person(person_id)
 );
 
 -- DROP TABLE IF EXISTS color;
