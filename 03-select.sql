@@ -76,4 +76,24 @@ where i.film_id = f.film_id
     and i.store_id = s.store_id
     and s.store_id = 1;
 
--- 6
+-- 6 vypiste adriesy vsetkych obchodov (2)
+-- BONUS: pridajte aj mena a emaily ich manazerov
+-- BONUS: k adrese pridajte aj mesto a krajinu
+
+CREATE VIEW full_address AS
+    SELECT a.address_id, a.address, a.address2,
+           a.district, c.city, ct.country,
+           a.postal_code, a.phone, a.last_update
+    FROM address a, city c, country ct
+    WHERE a.city_id = c.city_id
+    AND c.country_id = ct.country_id;
+
+select s.store_id,
+       st.first_name || ' ' || st.last_name as manager,
+       a.address, a.city, a.country
+from full_address as a,
+     store as s,
+     staff as st
+where
+    s.address_id = a.address_id
+    and s.manager_staff_id = st.staff_id;
