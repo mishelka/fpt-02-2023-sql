@@ -79,7 +79,6 @@ where i.film_id = f.film_id
 -- 6 vypiste adriesy vsetkych obchodov (2)
 -- BONUS: pridajte aj mena a emaily ich manazerov
 -- BONUS: k adrese pridajte aj mesto a krajinu
-
 CREATE VIEW full_address AS
     SELECT a.address_id, a.address, a.address2,
            a.district, c.city, ct.country,
@@ -97,3 +96,5 @@ from full_address as a,
 where
     s.address_id = a.address_id
     and s.manager_staff_id = st.staff_id;
+
+-- 7 ktore filmy zatial neboli vratene? Vypiste ich id (183)
