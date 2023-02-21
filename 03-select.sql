@@ -25,4 +25,8 @@ SELECT 5 * 3 as result;
 
 SELECT COUNT(*) FROM film_category;
 
+SELECT f.title, l.name FROM film f, language l
+WHERE f.language_id = l.language_id
+AND l.name = 'Japanese';
+
 
