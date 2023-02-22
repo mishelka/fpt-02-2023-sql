@@ -80,7 +80,7 @@ where i.film_id = f.film_id
 -- 6 vypiste adriesy vsetkych obchodov (2)
 -- BONUS: pridajte aj mena a emaily ich manazerov
 -- BONUS: k adrese pridajte aj mesto a krajinu
-DROP VIEW full_address;
+DROP VIEW IF EXISTS full_address;
 CREATE VIEW full_address AS
     SELECT a.address_id, a.address, a.address2,
            a.district,
@@ -154,7 +154,8 @@ where EXTRACT(YEAR from r.rental_date) = 2006;
 
 -- BONUS: pridajte aj adresu obchodu, z ktoreho boli pozicane
 -- a priezvisko zamestnanca, ktory filmy pozical
-select f.title, s.first_name, s.last_name, a.address, c.city, ct.country
+select f.title, s.first_name,
+       s.last_name, a.address, c.city, ct.country
 from rental r
     inner join inventory i on r.inventory_id = i.inventory_id
     inner join film f on i.film_id = f.film_id
