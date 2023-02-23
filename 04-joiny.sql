@@ -187,3 +187,56 @@ join address add on s.address_id = add.address_id
 join city c on add.city_id = c.city_id
 join country ct on c.country_id = ct.country_id
 where r.rental_id is null;
+
+-- 1 pocet filmov v kazdej kategorii
+SELECT category.name AS category_name, COUNT(*) AS film_count
+FROM category
+JOIN film_category ON category.category_id = film_category.category_id
+GROUP BY category.name
+ORDER BY film_count DESC;
+
+-- 2 najdlhsi, nakratsi film a priemer dlzok filov v kategorii scifi
+select
+    max(film.length),
+    min(film.length),
+    round(avg(film.length)),
+    name
+from film
+         join film_category fc on film.film_id = fc.film_id
+         join category c on fc.category_id = c.category_id
+where name = 'Sci-Fi'
+group by name;
+
+--3 Vypíšte sumárne zisky požičovne filmov po jednotlivých
+-- dňoch v mesiaci február.
+-- Platby máme iba za tento mesiac.
+select sum(amount) as profits,
+       extract(DAY from payment_date) AS day_in_february
+from payment p
+where extract(MONTH from payment_date) = 2
+group by extract(DAY from payment_date);
+
+-- 4 Vypíšte zisky z výpožičiek podľa krajín,
+-- z ktorých pochádzajú zákazníci.
+-- Zoznam zoraďte podľa zisku od najvyšších po
+-- najnižšie.
+-- vyfiltrujte zisky väčšie ako 70000.
+SELECT c3.country, sum(p.amount) as sum
+FROM payment p
+JOIN customer c on c.customer_id = p.customer_id
+JOIN address a on a.address_id = c.address_id
+JOIN city c2 on a.city_id = c2.city_id
+JOIN country c3 on c3.country_id = c2.country_id
+GROUP BY c3.country
+HAVING sum(p.amount) > 3000
+ORDER BY sum DESC;
+
+SELECT MIN(f.length), MAX(f.length), round(AVG(f.length),2) FROM film f
+JOIN film_category fc on f.film_id = fc.film_id
+JOIN category c on fc.category_id = c.category_id
+WHERE c.category_id = 14;
+
+SELECT sum(payment.amount) from payment
+JOIN customer c on c.customer_id = payment.customer_id
+WHERE c.first_name = 'Karl'
+AND c.last_name = 'Seal';
